@@ -4,9 +4,9 @@ import Book from './Book'
 
 class BookList extends React.Component {
   render () {
-    let currentlyReading = this.props.books.filter( (book) => (book.type === 'currentlyReading') );
-    let wantToRead = this.props.books.filter( (book) => (book.type === 'wantToRead') );
-    let read  = this.props.books.filter( (book) => (book.type === 'read') );
+    let currentlyReading = this.props.books.filter( (book) => (book.shelf === 'currentlyReading') );
+    let wantToRead = this.props.books.filter( (book) => (book.shelf === 'wantToRead') );
+    let read  = this.props.books.filter( (book) => (book.shelf === 'read') );
 
     return (
       <div className="list-books">
@@ -20,7 +20,7 @@ class BookList extends React.Component {
               <div className="bookshelf-books">
                 <ol className="books-grid">
                   {currentlyReading.map((book) => (
-                    <li key={book.title}>
+                    <li key={book.id}>
                       <Book onChangeShelf={this.props.changeShelf} book={book} type="currentlyReading" />
                     </li>
                   ))}
@@ -32,7 +32,7 @@ class BookList extends React.Component {
               <div className="bookshelf-books">
                 <ol className="books-grid">
                   {wantToRead.map((book) => (
-                    <li key={book.title}>
+                    <li key={book.id}>
                       <Book onChangeShelf={this.props.changeShelf} book={book} type="wantToRead" />
                     </li>
                   ))}
@@ -44,7 +44,7 @@ class BookList extends React.Component {
               <div className="bookshelf-books">
                 <ol className="books-grid">
                     {read.map((book) => (
-                      <li key={book.title}>
+                      <li key={book.id}>
                         <Book onChangeShelf={this.props.changeShelf} book={book} type="read" />
                       </li>
                     ))}
