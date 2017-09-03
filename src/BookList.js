@@ -21,7 +21,7 @@ class BookList extends React.Component {
                 <ol className="books-grid">
                   {currentlyReading.map((book) => (
                     <li key={book.id}>
-                      <Book onChangeShelf={this.props.changeShelf} book={book} type="currentlyReading" />
+                      <Book onChangeShelf={this.props.changeShelf} book={book} type={book.shelf} />
                     </li>
                   ))}
                 </ol>
@@ -33,7 +33,7 @@ class BookList extends React.Component {
                 <ol className="books-grid">
                   {wantToRead.map((book) => (
                     <li key={book.id}>
-                      <Book onChangeShelf={this.props.changeShelf} book={book} type="wantToRead" />
+                      <Book onChangeShelf={this.props.changeShelf} book={book} type={book.shelf} />
                     </li>
                   ))}
                 </ol>
@@ -45,7 +45,7 @@ class BookList extends React.Component {
                 <ol className="books-grid">
                     {read.map((book) => (
                       <li key={book.id}>
-                        <Book onChangeShelf={this.props.changeShelf} book={book} type="read" />
+                        <Book onChangeShelf={this.props.changeShelf} book={book} type={book.shelf} />
                       </li>
                     ))}
                 </ol>

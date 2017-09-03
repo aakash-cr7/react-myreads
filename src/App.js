@@ -1,5 +1,4 @@
 import BookList from './BookList';
-import { Link } from 'react-router-dom';
 import React from 'react';
 import { Route } from 'react-router-dom';
 import SearchBooks from './SearchBooks';
@@ -21,25 +20,34 @@ class BooksApp extends React.Component {
 
   componentDidMount = () => {
     BooksAPI.getAll().then( (books) => {
-      console.log(books);
       this.setState({ books })
     });
   }
 
   changeShelf = (book, shelf) => {
     let books = this.state.books;
-    // find the object in the books state and change its tyoe
+    // find the object in the books state and change its type
     let obj = books.find( (currentBook) => currentBook.title === book.title );
 
-    obj.shelf = shelf;
-    this.setState({ books });
+    // if object found update it else add to the books list
+    if (obj) {
+      obj.shelf = shelf;
+      this.setState({ books });
+    } else {
+      book.shelf = shelf;
+      this.setState( (state) => {
+        books: state.books.push(book)
+      });
+    }
+
+    BooksAPI.update(book, shelf);
   }
 
   render() {
     return (
       <div className="app">
         <Route path="/search" render={() => (
-          <SearchBooks />
+          <SearchBooks changeShelf={this.changeShelf} books={this.state.books} />
         )} />
 
         <Route exact path="/" render={() => (
